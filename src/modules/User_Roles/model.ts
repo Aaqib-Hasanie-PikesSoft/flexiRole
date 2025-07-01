@@ -1,29 +1,18 @@
-// src/modules/user/model.ts
-
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../database";
 
-const User = sequelize.define(
-  "User",
+const UserRole = sequelize.define(
+  "UserRole",
   {
-    id: {
+    user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
-      unique: true,
     },
-    username: {
-      type: DataTypes.STRING,
+    role_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      primaryKey: true,
     },
     created_at: {
       type: DataTypes.DATE,
@@ -37,11 +26,11 @@ const User = sequelize.define(
     },
   },
   {
-    tableName: "Users",
+    tableName: "User_roles",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
 
-export { User };
+export { UserRole };
