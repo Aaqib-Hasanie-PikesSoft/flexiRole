@@ -1,0 +1,21 @@
+npx sequelize-cli migration:generate --name create-users
+npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate:undo
+
+npm install --save-dev typescript ts-node @types/node
+ // "devDependencies": {
+  //   "@types/cors": "^2.8.19",
+  //   "@types/express": "^5.0.3",
+  //   "@types/node": "^16.11.7",
+  //   "nodemon": "^3.1.10",
+  //   "sequelize-cli": "^6.6.3",
+  //   "ts-node": "^10.4.0",
+  //   "typescript": "^4.5.4"
+  // },
+
+
+  routes
+  service
+  controller
+
+  
