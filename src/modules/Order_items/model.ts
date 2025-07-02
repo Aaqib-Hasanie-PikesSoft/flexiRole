@@ -4,11 +4,9 @@ import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../../database";
 import { OrderItemAttributes } from "src/enums/order-items.interface";
 
-// Define the interface for the creation of the OrderItem
 interface OrderItemCreationAttributes
   extends Optional<OrderItemAttributes, "id"> {}
 
-// Define the OrderItem model
 class OrderItem
   extends Model<OrderItemAttributes, OrderItemCreationAttributes>
   implements OrderItemAttributes

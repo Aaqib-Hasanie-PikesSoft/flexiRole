@@ -22,7 +22,6 @@ export class UserRoleService {
       return null; // not found
     }
 
-    // Check if user already has new_role_id to avoid duplicate composite key
     const duplicate = await UserRole.findOne({
       where: { user_id, role_id: new_role_id },
     });
@@ -30,7 +29,6 @@ export class UserRoleService {
       throw new Error("User already has the new role assigned.");
     }
 
-    // Perform atomic update: delete old, insert new
     await existing.destroy();
     const updated = await UserRole.create({ user_id, role_id: new_role_id });
     return updated;

@@ -9,14 +9,13 @@ import { OrderItem } from "./model";
 
 export class OrderItemService {
   async addOrderItem(data: CreateOrderItemData): Promise<OrderItemAttributes> {
-    // Create the order item, Sequelize will handle `created_at` and `updated_at`
     const orderItem = await OrderItem.create(data);
-    return orderItem.get() as OrderItemAttributes; // Return plain object
+    return orderItem.get() as OrderItemAttributes;
   }
 
   async getAllOrderItems(): Promise<OrderItemAttributes[]> {
     const orderItems = await OrderItem.findAll();
-    return orderItems.map((item) => item.get() as OrderItemAttributes); // Convert to plain object
+    return orderItems.map((item) => item.get() as OrderItemAttributes);
   }
 
   async getOrderItemsByOrderId(
@@ -43,7 +42,7 @@ export class OrderItemService {
     }
 
     await orderItem.save();
-    return orderItem.get() as OrderItemAttributes; // Return updated item as plain object
+    return orderItem.get() as OrderItemAttributes;
   }
 
   async removeOrderItem(id: number): Promise<boolean> {

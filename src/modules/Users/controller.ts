@@ -14,18 +14,15 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
-// Sign-in: Check credentials and return JWT token
 export const signIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     const token = await userService.signIn(email, password);
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        message: error instanceof Error ? error.message : String(error),
-      });
+    res.status(400).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 

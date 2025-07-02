@@ -13,7 +13,6 @@ export interface CreateOrderItemData {
   quantity: number;
   price: number;
 }
-// src/enums/order-items.interface.ts
 
 export interface CreateOrderItemData {
   order_id: number;
