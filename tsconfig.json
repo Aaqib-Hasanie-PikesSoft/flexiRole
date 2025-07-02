@@ -14,6 +14,11 @@
       "@models/*": ["src/models/*"] // If you're using path aliases
     }
   },
-  "include": ["src/**/*.ts", "src/migrations/20250630122932-create-users.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts",
+    "src/migrations/20250630122932-create-users.js",
+    "lib/**/*.ts"
+  ],
+  "exclude": ["node_modules"],
+  "files": ["src/types/types.d.ts"]
 }

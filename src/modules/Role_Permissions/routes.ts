@@ -5,6 +5,7 @@ import {
   assignPermission,
   getRolePermissions,
   removeRolePermission,
+  updateRolePermission,
 } from "./controller";
 
 const router = express.Router();
@@ -134,5 +135,57 @@ router.delete(
   "/role-permissions/:role_id/:permission_id",
   removeRolePermission
 );
+
+/**
+ * @swagger
+ * /api/role-permission-api/role-permissions/{role_id}/{permission_id}:
+ *   put:
+ *     summary: Update a permission assigned to a role
+ *     tags:
+ *       - RolePermission
+ *     parameters:
+ *       - in: path
+ *         name: role_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: permission_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - new_permission_id
+ *             properties:
+ *               new_permission_id:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Role permission updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 role_id:
+ *                   type: integer
+ *                 permission_id:
+ *                   type: integer
+ *                 created_at:
+ *                   type: string
+ *                   format: date-time
+ *                 updated_at:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: Role permission not found
+ */
+router.put("/role-permissions/:role_id/:permission_id", updateRolePermission);
 
 export default router;

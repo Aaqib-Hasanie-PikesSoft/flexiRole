@@ -11,11 +11,25 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000", // Update this with your server's URL
+        url: "http://localhost:3000",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
       },
     ],
   },
-  apis: ["./src/modules/**/routes.ts"], // Define the path to your routes or API docs (where your endpoint handlers are)
+  apis: ["./src/modules/**/routes.ts"],
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);

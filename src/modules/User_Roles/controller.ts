@@ -58,3 +58,32 @@ export const removeUserRole = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updateUserRole = async (req: Request, res: Response) => {
+  const user_id = Number(req.params.user_id);
+  const old_role_id = Number(req.params.role_id);
+  const { new_role_id } = req.body;
+
+  if (!new_role_id || typeof new_role_id !== "number") {
+    return res
+      .status(400)
+      .json({ message: "new_role_id (number) is required in body." });
+  }
+
+  try {
+    const updated = await userRoleService.updateUserRole(
+      user_id,
+      old_role_id,
+      new_role_id
+    );
+    if (!updated) {
+      return res.status(404).json({ message: "User role not found." });
+    }
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+};

@@ -7,10 +7,71 @@ import {
   getUserByIdOrEmail,
   updateUser,
   deleteUser,
+  signIn,
+  signUp,
 } from "./controller";
+import { authenticate } from "../../middlewares/authentication.middleware";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/users-api/sign-up:
+ *   post:
+ *     summary: Sign up a new user
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ */
+router.post("/sign-up", signUp);
+
+/**
+ * @swagger
+ * /api/users-api/sign-in:
+ *   post:
+ *     summary: Sign in an existing user
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: JWT token returned
+ */
+router.post("/sign-in", signIn);
+
+router.use(authenticate);
 /**
  * @swagger
  * /api/users-api/users:

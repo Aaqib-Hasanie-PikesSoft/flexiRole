@@ -4,6 +4,7 @@ import {
   getAllUserRoles,
   getUserRoles,
   removeUserRole,
+  updateUserRole,
 } from "./controller";
 
 const router = express.Router();
@@ -160,5 +161,57 @@ router.get("/user-roles/:user_id", getUserRoles);
  *                   type: string
  */
 router.delete("/user-roles/:user_id/:role_id", removeUserRole);
+
+/**
+ * @swagger
+ * /api/user-roles-api/user-roles/{user_id}/{role_id}:
+ *   put:
+ *     summary: Update a user's role assignment
+ *     tags:
+ *       - UserRoles
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: role_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - new_role_id
+ *             properties:
+ *               new_role_id:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: User role updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user_id:
+ *                   type: integer
+ *                 role_id:
+ *                   type: integer
+ *                 created_at:
+ *                   type: string
+ *                   format: date-time
+ *                 updated_at:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: User role not found
+ */
+router.put("/user-roles/:user_id/:role_id", updateUserRole);
 
 export default router;

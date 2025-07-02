@@ -2,6 +2,32 @@ import { Request, Response } from "express";
 import { UserService } from "./service";
 
 const userService = new UserService();
+export const signUp = async (req: Request, res: Response) => {
+  const { username, email, password } = req.body;
+  try {
+    const user = await userService.signUp(username, email, password);
+    res.status(201).json({ message: "User created successfully.", user });
+  } catch (error) {
+    res.status(400).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+};
+
+// Sign-in: Check credentials and return JWT token
+export const signIn = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  try {
+    const token = await userService.signIn(email, password);
+    res.status(200).json({ message: "Login successful", token });
+  } catch (error) {
+    res
+      .status(400)
+      .json({
+        message: error instanceof Error ? error.message : String(error),
+      });
+  }
+};
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -9,11 +35,9 @@ export const getUsers = async (req: Request, res: Response) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
@@ -24,11 +48,9 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(201).json(newUser);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
@@ -43,11 +65,9 @@ export const getUserByIdOrEmail = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
@@ -63,11 +83,9 @@ export const updateUser = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
@@ -82,10 +100,8 @@ export const deleteUser = async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : String(error),
-      });
+    res.status(500).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 };

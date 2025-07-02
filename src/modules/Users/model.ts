@@ -1,10 +1,23 @@
-// src/modules/user/model.ts
-
-import { DataTypes } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../../database";
+import {
+  UserAttributes,
+  UserCreationAttributes,
+} from "src/interfaces/user.interface";
 
-const User = sequelize.define(
-  "User",
+class User
+  extends Model<UserAttributes, UserCreationAttributes>
+  implements UserAttributes
+{
+  public id!: number;
+  public username!: string;
+  public email!: string;
+  public password!: string;
+  public created_at!: Date;
+  public updated_at!: Date;
+}
+
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -37,6 +50,7 @@ const User = sequelize.define(
     },
   },
   {
+    sequelize,
     tableName: "Users",
     timestamps: true,
     createdAt: "created_at",

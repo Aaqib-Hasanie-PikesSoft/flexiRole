@@ -10,6 +10,31 @@ export class UserRoleService {
   async getAllUserRoles() {
     return await UserRole.findAll();
   }
+  async updateUserRole(
+    user_id: number,
+    old_role_id: number,
+    new_role_id: number
+  ) {
+    const existing = await UserRole.findOne({
+      where: { user_id, role_id: old_role_id },
+    });
+    if (!existing) {
+      return null; // not found
+    }
+
+    // Check if user already has new_role_id to avoid duplicate composite key
+    const duplicate = await UserRole.findOne({
+      where: { user_id, role_id: new_role_id },
+    });
+    if (duplicate) {
+      throw new Error("User already has the new role assigned.");
+    }
+
+    // Perform atomic update: delete old, insert new
+    await existing.destroy();
+    const updated = await UserRole.create({ user_id, role_id: new_role_id });
+    return updated;
+  }
 
   async getUserRoles(user_id: number) {
     return await UserRole.findAll({ where: { user_id } });
