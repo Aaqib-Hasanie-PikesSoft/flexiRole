@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { UserService } from "./service";
+import { User } from "./model";
+import { Role } from "../Roles/model";
+import { Permission } from "../Permissions/model";
 
 const userService = new UserService();
 export const signUp = async (req: Request, res: Response) => {
@@ -95,6 +98,44 @@ export const deleteUser = async (req: Request, res: Response) => {
     } else {
       res.status(404).json({ message: "User not found" });
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+};
+
+export const getMe = async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const user = await User.findOne({
+      where: { id: userId },
+      attributes: { exclude: ["password"] }, // exclude sensitive fields
+      include: [
+        {
+          model: Role,
+          through: { attributes: [] }, // hide UserRole join table
+          include: [
+            {
+              model: Permission,
+              through: { attributes: [] }, // hide RolePermission join table
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({

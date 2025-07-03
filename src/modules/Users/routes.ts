@@ -9,6 +9,7 @@ import {
   deleteUser,
   signIn,
   signUp,
+  getMe,
 } from "./controller";
 import { authenticate } from "../../middlewares/authentication.middleware";
 
@@ -228,5 +229,24 @@ router.put("/users/:id", updateUser);
  *         description: User not found
  */
 router.delete("/users/:id", deleteUser);
+
+/**
+ * @swagger
+ * /api/users-api/me:
+ *   get:
+ *     summary: Get authenticated user with roles and permissions
+ *     tags:
+ *       - Users
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User with roles and permissions
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: User not found
+ */
+router.get("/me", getMe);
 
 export default router;

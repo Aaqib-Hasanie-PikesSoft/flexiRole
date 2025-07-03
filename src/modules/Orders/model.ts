@@ -1,7 +1,7 @@
 // src/modules/orders/model.ts
 
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../database";
+import { sequelize } from "../../database/database";
 
 const Order = sequelize.define(
   "Order",

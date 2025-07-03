@@ -1,7 +1,7 @@
 // src/modules/inventory/model.ts
 
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../../database";
+import { sequelize } from "../../database/database";
 import {
   CreateInventoryData,
   InventoryAttributes,

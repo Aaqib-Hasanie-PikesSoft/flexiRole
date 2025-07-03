@@ -1,7 +1,7 @@
 // src/modules/order_items/model.ts
 
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../../database";
+import { sequelize } from "../../database/database";
 import { OrderItemAttributes } from "src/enums/order-items.interface";
 
 interface OrderItemCreationAttributes

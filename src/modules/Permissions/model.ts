@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../../database";
+import { sequelize } from "../../database/database";
 
 const Permission = sequelize.define(
   "Permission",

@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { swaggerUi, swaggerDocs } from "./swagger";
 import generalRouter from "./router";
+import "./database/associations";
 
 dotenv.config();
 
 const app = express();
 
-import { sequelize } from "./database";
+import { sequelize } from "./database/database";
 
 sequelize
   .authenticate()
